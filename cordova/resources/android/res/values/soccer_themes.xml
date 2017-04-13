@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+     <style name="Theme.Soccer.SplashScreen" parent="Theme.Tabris.Light">
+        <item name="android:statusBarColor">#0a5812</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowBackground">@drawable/splash_screen_soccer</item>
+    </style>
+</resources>
