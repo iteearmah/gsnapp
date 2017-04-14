@@ -63,7 +63,7 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
         }
     }).appendTo(drawer);
 
-    let drawerBottom = new tabris.Composite({
+  /*  let drawerBottom = new tabris.Composite({
         height:config.item.bottom_banner_margin,
         left: 0,
         right: 0,
@@ -77,7 +77,7 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
         top: 15,
         textColor:'#fff',
         text:config.item.appDomain
-    }).appendTo(drawerBottom);
+    }).appendTo(drawerBottom);*/
 
     function initializeStandardCell(cell) {
         cell.highlightOnTouch = true;
