@@ -63,15 +63,15 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
         }
     }).appendTo(drawer);
 
-  /*  let drawerBottom = new tabris.Composite({
+   /* let drawerBottom = new tabris.Composite({
         height:config.item.bottom_banner_margin,
         left: 0,
         right: 0,
         top: [collectionView, 0],
-        background:config.item.primaryBgColor
-    }).appendTo(drawer);
+        background: '#ededed'
+    }).appendTo(drawer);*/
 
-    let drawerBottomText = new tabris.TextView({
+   /* let drawerBottomText = new tabris.TextView({
         left: 10,
         right: 0,
         top: 15,
