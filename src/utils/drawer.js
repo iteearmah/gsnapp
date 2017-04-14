@@ -17,8 +17,8 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
         left: 0,
         top: [drawableImageView, 0],
         right: 0,
-        bottom: 0,
         background:'#ededed',
+        bottom: config.item.bottom_banner_margin,
         items: drawerMenu.menuItems(),
         itemHeight: function(item, type) {
             return type === 'heading' ? 35 : 40;
@@ -62,6 +62,22 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
             drawer.close();
         }
     }).appendTo(drawer);
+
+    let drawerBottom = new tabris.Composite({
+        height:config.item.bottom_banner_margin,
+        left: 0,
+        right: 0,
+        top: [collectionView, 0],
+        background:config.item.primaryBgColor
+    }).appendTo(drawer);
+
+    let drawerBottomText = new tabris.TextView({
+        left: 10,
+        right: 0,
+        top: 15,
+        textColor:'#fff',
+        text:config.item.appDomain
+    }).appendTo(drawerBottom);
 
     function initializeStandardCell(cell) {
         cell.highlightOnTouch = true;

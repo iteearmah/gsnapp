@@ -4,6 +4,7 @@ exports.item = {
     secondaryBgColor: "#000",
     thirdBgColor: "#ffb400",
     appLogo: 'mainlogo.png',
+    appDomain: 'Ghanasoccernet.com',
     primaryColor: "#ffb400",
     pageMargin: 16,
     imageSize: 120,
