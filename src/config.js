@@ -12,8 +12,8 @@ exports.item = {
     largeMargin: 24,
     imagePath: 'images',
     apiUrl: 'http://ghanasoccernet.com/api',
-    admobAppID: 'ca-app-pub-3295601448550551~3383395220',
-    bottom_banner: 'ca-app-pub-3295601448550551/3243794426',
-    Interstitial: 'ca-app-pub-3295601448550551/9150727229',
+    admobAppID: 'ca-app-pub-4814474600915358~2624476346',
+    bottom_banner: 'ca-app-pub-4814474600915358/4101209541',
+    Interstitial: 'ca-app-pub-4814474600915358/5577942743',
     bottom_banner_margin:50,
 };
