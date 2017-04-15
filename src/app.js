@@ -57,22 +57,28 @@ let latestPhotosTab = tabs.createTab('Photos', mainPage);
 admob.initAdmob(config.item.bottom_banner, config.item.Interstitial);
 admob.cacheInterstitial(); // load admob Interstitial
 admob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_CENTER);
-let adTimer = setInterval(function() {
-    admob.cacheInterstitial(); // load admob Interstitial
-    admob.isInterstitialReady(function(isReady) {
-        admob.showInterstitial();
-    });
-}, (1000 * 60) * 2);
-tabris.app.on('pause', function() {
-    clearInterval(adTimer);
-}).on('resume', function() {
-    let adTimer = setInterval(function() {
+let adTimer;
+adTimer = setInterval(function() {
         admob.cacheInterstitial(); // load admob Interstitial
         admob.isInterstitialReady(function(isReady) {
             admob.showInterstitial();
         });
+        //window.plugins.toast.showLongBottom('Main');
     }, (1000 * 60) * 2);
+
+tabris.app.on('foreground', function() {
+    adTimer = setInterval(function() {
+        admob.cacheInterstitial(); // load admob Interstitial
+        admob.isInterstitialReady(function(isReady) {
+            admob.showInterstitial();
+        });
+        //window.plugins.toast.showLongBottom('foreground mode one');
+    }, (1000 * 60) * 2);
+}).on('pause', function() {
+    clearInterval(adTimer);
 });
+
+
 listItems.createItems(true, catUrl('latest-news'), config.item.imageSize, config.item.marign, latestNewsTab, 'lateestnews_list', navigationView, shareAction);
 listItems.createItems(false, catUrl('world-football'), config.item.imageSize, config.item.marign, worldfootballTab, 'worldfootball_list', navigationView, shareAction);
 listItems.createItems(false, catUrl('ghana-players-abroad'), config.item.imageSize, config.item.marign, ghPlayersAbroadTab, 'ghplayersabroad_list', navigationView, shareAction);
