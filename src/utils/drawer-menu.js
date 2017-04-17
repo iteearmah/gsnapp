@@ -34,6 +34,7 @@ exports.menuItems = function() {
         ['Accra Great Olympics', rightarrow, 'accra-great-olympic', 'normal'],
        
         ['Ghanasoccernet', '', '', 'heading'],//heading
+        ['Settings', 'ic_settings_black_48dp.png', 'settings', 'normal'],
         ['About Us', rightarrow, 'about', 'normal'],
         ['Contact Us', rightarrow, 'contact', 'normal'],
     ].map(function(element) {	

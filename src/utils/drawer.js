@@ -3,6 +3,7 @@ let listItems = require('./list-items.js');
 let drawerMenu = require('./drawer-menu.js');
 let aboutus = require('../pages/aboutus.js');
 let contact = require('../pages/contactus.js');
+let settings = require('../pages/settings.js');
 exports.createMenu = function(drawer, navigationView, shareAction) {
     //Category Page
     let drawableImageView = new tabris.ImageView({
@@ -46,6 +47,10 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
         	{
         		contact.show(navigationView);
         	}
+            else if(item.slug == 'settings')
+            {
+                settings.show(navigationView);
+            }
         	else
         	{
         		let categoryPage = new tabris.Page({
