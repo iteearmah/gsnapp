@@ -10,6 +10,7 @@ let interConnection = require('./utils/noconnection.js');
 let tabs = require('./utils/tabs.js');
 let listItems = require('./utils/list-items.js');
 let drawerMenu = require('./utils/drawer.js');
+let detail_page = require("./pages/news-details.js");
 let drawer = tabris.ui.drawer;
 drawer.enabled = true;
 //drawer.locked = false;
@@ -55,19 +56,28 @@ let nationalTeamTab = tabs.createTab('National Teams', mainPage);
 let latestPhotosTab = tabs.createTab('Photos', mainPage);
 //let latestVideosTab = tabs.createTab('Videos', mainPage);
 //Tab listings
-window.plugins.OneSignal.startInit("e07acd71-e6f4-45ab-807e-6af82c1912d4").inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification).endInit();
+window.plugins.OneSignal.startInit().inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification).endInit();
+window.plugins.OneSignal.startInit("e07acd71-e6f4-45ab-807e-6af82c1912d4").handleNotificationOpened(function(jsonData) {
+    //console.log('didOpenRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+    if(jsonData.notification.payload)
+    {
+       let newsDetailPage = detail_page.news_readPage(jsonData.notification.payload.additionalData,shareAction);
+         newsDetailPage.title = jsonData.notification.payload.title + ' - News';
+         newsDetailPage.appendTo(navigationView); 
+    }
+     
+}).inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.None).endInit();
 admob.initAdmob(config.item.bottom_banner, config.item.Interstitial);
 admob.cacheInterstitial(); // load admob Interstitial
 admob.showBanner(admob.BannerSize.SMART_BANNER, admob.Position.BOTTOM_CENTER);
 let adTimer;
 adTimer = setInterval(function() {
-        admob.cacheInterstitial(); // load admob Interstitial
-        admob.isInterstitialReady(function(isReady) {
-            admob.showInterstitial();
-        });
-        //window.plugins.toast.showLongBottom('Main');
-    }, (1000 * 60) * 2);
-
+    admob.cacheInterstitial(); // load admob Interstitial
+    admob.isInterstitialReady(function(isReady) {
+        admob.showInterstitial();
+    });
+    //window.plugins.toast.showLongBottom('Main');
+}, (1000 * 60) * 2);
 tabris.app.on('foreground', function() {
     adTimer = setInterval(function() {
         admob.cacheInterstitial(); // load admob Interstitial
@@ -107,7 +117,6 @@ tabris.app.on('foreground', function() {
 }).on('pause', function() {
     clearInterval(adTimer);
 });*/
-
 window.ga.startTrackerWithId(config.item.googleAnalytics);
 window.ga.trackView('Home');
 window.ga.setUserId(tabris.app.id);

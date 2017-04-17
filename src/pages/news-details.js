@@ -78,7 +78,6 @@ exports.news_readPage = function(newsItem, shareAction) {
         centerX: 0,
         centerY: 0
     }).appendTo(newsDetailpage);
-    fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComposite);
     shareAction.on("select", function() {
         window.plugins.socialsharing.share(newsItem.title, newsItem.title, null, newsItem.link);
     });
@@ -110,6 +109,13 @@ exports.news_readPage = function(newsItem, shareAction) {
         let opacity = 1 - (titleCompDistanceToTop * (1 - INITIAL_TITLE_COMPOSITE_OPACITY)) / titleCompY;
         return opacity <= 1 ? opacity : 1;
     }
+    let photo2View = new tabris.ImageView({
+        left: 0,
+        top: 0,
+        right: 0,
+        scaleMode: "fill"
+    }).appendTo(scrollView);
+    fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComposite);
     return newsDetailpage;
 }
 
@@ -199,9 +205,30 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
             newsArticle.text = articleArticle;
         }
         activityIndicator.visible = false;
+        if (data.photos) {
+            for (var i = 0; i < data.photos.length; i++) {
+                createphotos(data.photos[i], contentComposite, i);
+            }
+        }
+        //console.log(data.photos[0]);
+        
     });
 }
 
 function actionShareVisbility(shareAction, isVisible) {
     shareAction.visible = isVisible;
+}
+
+function createphotos(photoSrc, wParent, photoIndex) {
+    let photoView = new tabris.ImageView({
+        left: 0,
+        top: ["prev()", 10],
+        right: 0,
+        scaleMode: "fill",
+        image: {
+            src: photoSrc
+        },
+        id: 'photo_' + photoIndex
+    }).appendTo(wParent);
+    return photoView;
 }
