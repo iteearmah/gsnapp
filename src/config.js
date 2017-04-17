@@ -16,4 +16,5 @@ exports.item = {
     bottom_banner: 'ca-app-pub-4814474600915358/4101209541',
     Interstitial: 'ca-app-pub-4814474600915358/5577942743',
     bottom_banner_margin:50,
+    googleAnalytics:'UA-97487515-1',
 };

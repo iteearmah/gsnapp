@@ -108,7 +108,10 @@ tabris.app.on('foreground', function() {
     clearInterval(adTimer);
 });*/
 
-
+window.ga.startTrackerWithId(config.item.googleAnalytics);
+window.ga.trackView('Home');
+window.ga.setUserId(tabris.app.id);
+window.ga.setAppVersion(tabris.app.version);
 listItems.createItems(true, catUrl('latest-news'), config.item.imageSize, config.item.marign, latestNewsTab, 'lateestnews_list', navigationView, shareAction);
 listItems.createItems(false, catUrl('world-football'), config.item.imageSize, config.item.marign, worldfootballTab, 'worldfootball_list', navigationView, shareAction);
 listItems.createItems(false, catUrl('ghana-players-abroad'), config.item.imageSize, config.item.marign, ghPlayersAbroadTab, 'ghplayersabroad_list', navigationView, shareAction);

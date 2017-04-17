@@ -38,6 +38,7 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
     }).on('select', function({
         item
     }) {
+        window.ga.trackView(item.slug);
         if (item.type == 'normal') {
         	if(item.slug == 'about')
         	{

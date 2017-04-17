@@ -28,4 +28,5 @@
   <plugin name="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git"/>
   <plugin name="https://github.com/Glitchbone/CordovaYoutubeVideoPlayer.git"/>
   <plugin name="https://github.com/iteearmah/admob-cordova.git"/>
+  <plugin name="cordova-plugin-google-analytics"/>
 </widget>
