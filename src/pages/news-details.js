@@ -168,7 +168,7 @@ function testUrlForMedia(pastedData) {
     return false;
 }
 
-function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComposite) {
+function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComposite, titleComposite) {
     activityIndicator.visible = true;
     let article = '';
     json_url = config.item.apiUrl + '/post/' + newsItem.id;
@@ -181,7 +181,7 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
             //displayVideo(newsItem.id,contentComposite);
             let videoId = media.id;
             videoId = videoId.replace(/(\?.*)|(#.*)/g, "");
-            console.log(videoId);
+            //console.log(videoId);
             new tabris.Button({
                 left: 0,
                 top: 10,
@@ -202,16 +202,37 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
             if (articleArticle != '') {
                 //articleArticle=articleArticle+'<p><<strong>Source:</strong> '+data.source;
             }
+            if (data.video) {
+                if (data.video.videotype == 'youtube') {
+                    new tabris.Button({
+                        left: 5,
+                        top: ['prev()', 0],
+                        right: 0,
+                        bottom: 10,
+                        image: {
+                            src: config.item.imagePath + '/ic_play_circle_outline_white_48dp.png',
+                            height: 50,
+                        },
+                        background: '#B70404',
+                        textColor: '#fff',
+                        text: 'Watch Video'
+                    }).on('select', function() {
+                        YoutubeVideoPlayer.openVideo(data.video.videoid);
+                    }).appendTo(contentComposite);
+                }
+              /*  if (data.video.videotype == 'playwire') {
+                    videoBox(contentComposite,data.video.videoid);
+                }*/
+            }
             newsArticle.text = articleArticle;
-        }
-        activityIndicator.visible = false;
-        if (data.photos) {
-            for (var i = 0; i < data.photos.length; i++) {
-                createphotos(data.photos[i], contentComposite, i);
+            if (data.photos) {
+                for (var i = 0; i < data.photos.length; i++) {
+                    createphotos(data.photos[i], contentComposite, i);
+                }
             }
         }
+        activityIndicator.visible = false;
         //console.log(data.photos[0]);
-        
     });
 }
 
@@ -222,7 +243,7 @@ function actionShareVisbility(shareAction, isVisible) {
 function createphotos(photoSrc, wParent, photoIndex) {
     let photoView = new tabris.ImageView({
         left: 0,
-        top: ["prev()", 10],
+        top: ["prev()", 5],
         right: 0,
         scaleMode: "fill",
         image: {
@@ -231,4 +252,14 @@ function createphotos(photoSrc, wParent, photoIndex) {
         id: 'photo_' + photoIndex
     }).appendTo(wParent);
     return photoView;
+}
+
+function videoBox(wParent,src) {
+    var video = new tabris.Video({
+        left: 0,
+        top: ["prev()", 5],
+        right: 0,
+        url: 'https://cdn.video.playwire.com/18132/videos/5396570/video-sd.mp4',
+        controlsVisible: true
+    }).appendTo(wParent);
 }

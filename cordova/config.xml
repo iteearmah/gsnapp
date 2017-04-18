@@ -1,12 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ghanasoccernet" version="0.1.5">
-  <name>Ghanasoccernet</name>
+<widget id="com.ghanasoccernet" version="0.1.6">
+  <name>GhanaSoccernet</name>
   <description>
     Ghana football, Ghana soccer, Ghana football news, scores, stats, and features from the Ghana's leading football website, GHANAsoccernet.com
   </description>
   <author email="iteearmah@gmail.com">
     Samuel Armah
   </author>
+  <hook type="after_platform_add" src="scripts/android/afterPlatformAdd.js" />
   <platform name="android">
         <icon src="res/mipmap-mdpi/ic_launcher.png" density="mdpi" />
         <icon src="res/mipmap-hdpi/ic_launcher.png" density="hdpi" />
