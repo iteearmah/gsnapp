@@ -22,13 +22,19 @@ exports.news_readPage = function(newsItem, shareAction) {
         top: 0,
         bottom: 50
     }).appendTo(newsDetailpage);
+    let imageComposite = new tabris.Composite({
+        left: 0,
+        right: 0,
+        top: 0,
+        id: "imageComposite",
+    }).appendTo(scrollView);
     let imageView = new tabris.ImageView({
         left: 0,
         top: 0,
         right: 0,
         image: newsItem.image_large,
         scaleMode: "fill"
-    }).appendTo(scrollView);
+    }).appendTo(imageComposite);
     let titleComposite = new tabris.Composite({
         left: 0,
         right: 0,
@@ -115,7 +121,7 @@ exports.news_readPage = function(newsItem, shareAction) {
         right: 0,
         scaleMode: "fill"
     }).appendTo(scrollView);
-    fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComposite);
+    fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComposite, titleComposite, period, imageComposite);
     return newsDetailpage;
 }
 
@@ -168,7 +174,7 @@ function testUrlForMedia(pastedData) {
     return false;
 }
 
-function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComposite, titleComposite) {
+function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComposite, titleComposite, period,imageComposite) {
     activityIndicator.visible = true;
     let article = '';
     json_url = config.item.apiUrl + '/post/' + newsItem.id;
@@ -176,7 +182,7 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
         //console.log(json);
         let data = json;
         //console.log(json_url+':'+JSON.stringify(data));
-        if (newsItem.category == 'latest-videos') {
+        if (newsItem.category == 'latest-videos_zzz') {
             media = testUrlForMedia(data.article);
             //displayVideo(newsItem.id,contentComposite);
             let videoId = media.id;
@@ -199,16 +205,13 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
             }
         } else {
             let articleArticle = data.article;
-            if (articleArticle != '') {
-                //articleArticle=articleArticle+'<p><<strong>Source:</strong> '+data.source;
-            }
+            newsArticle.text = articleArticle;
             if (data.video) {
-                if (data.video.videotype == 'youtube') {
+                if (data.video.videotype == 'youtube' || data.video.videotype == 'twitter') {
                     new tabris.Button({
                         left: 5,
-                        top: ['prev()', 0],
-                        right: 0,
-                        bottom: 10,
+                        top: [period, 30],
+                        right: 5,
                         image: {
                             src: config.item.imagePath + '/ic_play_circle_outline_white_48dp.png',
                             height: 50,
@@ -217,39 +220,24 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
                         textColor: '#fff',
                         text: 'Watch Video'
                     }).on('select', function() {
-                        YoutubeVideoPlayer.openVideo(data.video.videoid);
-                    }).appendTo(contentComposite);
+                        if (data.video.videotype == 'youtube') {
+                            //youtud video
+                            YoutubeVideoPlayer.openVideo(data.video.videoid);
+                        } else if (data.video.videotype == 'twitter') {
+                            //twitter video
+                            cordova.InAppBrowser.open(config.item.apiUrl + '/video?type=twitter&videoid=' + data.video.videoid, '_blank', 'location=no', 'zoom=no');
+                        }
+                    }).appendTo(titleComposite);
                 }
-                if (data.video.videotype == 'twitter') {
-                    let twitter_video = data.video.videoid;
-                    console.log(twitter_video);
-                    let embed_video = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
-                    embed_video += '<meta name="HandheldFriendly" content="true" />';
-                    embed_video += '<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />';
-                    embed_video += '</head>';
-                    embed_video += '<body>';
-                    embed_video += '<blockquote class="twitter-video" lang="en">';
-                    embed_video += '</p><p><p dir="ltr" lang="en"></a></p>';
-                    embed_video += '</p><p><a href="https:' + twitter_video + '"></a></blockquote>';
-                    embed_video += '</p><p><script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>';
-                    embed_video += '</body>';
-                    embed_video += '</html>';
-                    console.log(embed_video);
-                    cordova.InAppBrowser.open(config.item.apiUrl+'/twitter?status_video='+twitter_video, '_blank', 'location=no');
-                    let webview = new tabris.WebView({
-                        left: 0,
-                        top: ['prev()', 0],
-                        right: 0,
-                        height: 200,
-                        html: embed_video
-                        /*url:config.item.apiUrl+'/twitter?status_video='+twitter_video*/
-                    }).appendTo(contentComposite);
-                }
-                /*  if (data.video.videotype == 'playwire') {
-                      videoBox(contentComposite,data.video.videoid);<blockquote class="twitter-video" lang="en">
-                  }*/
+               /* let videoPlayIcon = new tabris.ImageView({
+                    centerX: 0,
+                    centerY: 0,
+                    image: {
+                        src: config.item.imagePath + '/ic_play_circle_outline_white_48dp.png',
+                        height: 50,
+                    },
+                }).appendTo(imageComposite);*/
             }
-            newsArticle.text = articleArticle;
             if (data.photos) {
                 for (let i = 0; i < data.photos.length; i++) {
                     createphotos(data.photos[i], contentComposite, i);
