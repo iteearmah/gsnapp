@@ -220,13 +220,38 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
                         YoutubeVideoPlayer.openVideo(data.video.videoid);
                     }).appendTo(contentComposite);
                 }
-              /*  if (data.video.videotype == 'playwire') {
-                    videoBox(contentComposite,data.video.videoid);
-                }*/
+                if (data.video.videotype == 'twitter') {
+                    let twitter_video = data.video.videoid;
+                    console.log(twitter_video);
+                    let embed_video = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
+                    embed_video += '<meta name="HandheldFriendly" content="true" />';
+                    embed_video += '<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />';
+                    embed_video += '</head>';
+                    embed_video += '<body>';
+                    embed_video += '<blockquote class="twitter-video" lang="en">';
+                    embed_video += '</p><p><p dir="ltr" lang="en"></a></p>';
+                    embed_video += '</p><p><a href="https:' + twitter_video + '"></a></blockquote>';
+                    embed_video += '</p><p><script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>';
+                    embed_video += '</body>';
+                    embed_video += '</html>';
+                    console.log(embed_video);
+                    cordova.InAppBrowser.open(config.item.apiUrl+'/twitter?status_video='+twitter_video, '_blank', 'location=no');
+                    let webview = new tabris.WebView({
+                        left: 0,
+                        top: ['prev()', 0],
+                        right: 0,
+                        height: 200,
+                        html: embed_video
+                        /*url:config.item.apiUrl+'/twitter?status_video='+twitter_video*/
+                    }).appendTo(contentComposite);
+                }
+                /*  if (data.video.videotype == 'playwire') {
+                      videoBox(contentComposite,data.video.videoid);<blockquote class="twitter-video" lang="en">
+                  }*/
             }
             newsArticle.text = articleArticle;
             if (data.photos) {
-                for (var i = 0; i < data.photos.length; i++) {
+                for (let i = 0; i < data.photos.length; i++) {
                     createphotos(data.photos[i], contentComposite, i);
                 }
             }
@@ -254,7 +279,7 @@ function createphotos(photoSrc, wParent, photoIndex) {
     return photoView;
 }
 
-function videoBox(wParent,src) {
+function videoBox(wParent, src) {
     var video = new tabris.Video({
         left: 0,
         top: ["prev()", 5],

@@ -12,6 +12,8 @@ exports.item = {
     largeMargin: 24,
     imagePath: 'images',
     apiUrl: 'http://ghanasoccernet.com/api',
+    app_site_url: 'http://ghanasoccernet.com',
+    app_mobile_site_url: 'http://mobile.ghanasoccernet.com',
     admobAppID: 'ca-app-pub-4814474600915358~2624476346',
     bottom_banner: 'ca-app-pub-4814474600915358/4101209541',
     Interstitial: 'ca-app-pub-4814474600915358/5577942743',

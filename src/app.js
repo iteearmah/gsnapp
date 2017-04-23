@@ -53,8 +53,9 @@ let worldfootballTab = tabs.createTab('World Football', mainPage);
 let ghPlayersAbroadTab = tabs.createTab('Players Abroad', mainPage);
 let ghPremLeagueTab = tabs.createTab('Ghana Premier League', mainPage);
 let nationalTeamTab = tabs.createTab('National Teams', mainPage);
+let latestVideosTab = tabs.createTab('Videos', mainPage);
 let latestPhotosTab = tabs.createTab('Photos', mainPage);
-//let latestVideosTab = tabs.createTab('Videos', mainPage);
+
 //Tab listings
 window.plugins.OneSignal.startInit().inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification).endInit();
 window.plugins.OneSignal.startInit("e07acd71-e6f4-45ab-807e-6af82c1912d4").handleNotificationOpened(function(jsonData) {
@@ -126,4 +127,5 @@ listItems.createItems(false, catUrl('world-football'), config.item.imageSize, co
 listItems.createItems(false, catUrl('ghana-players-abroad'), config.item.imageSize, config.item.marign, ghPlayersAbroadTab, 'ghplayersabroad_list', navigationView, shareAction);
 listItems.createItems(false, catUrl('ghana-prem-league'), config.item.imageSize, config.item.marign, ghPremLeagueTab, 'ghpremleague_list', navigationView, shareAction);
 listItems.createItems(false, catUrl('national-teams'), config.item.imageSize, config.item.marign, nationalTeamTab, 'national_teams_list', navigationView, shareAction);
+listItems.createItems(false, catUrl('latest-videos'), config.item.imageSize, config.item.marign, latestVideosTab, 'latest_videos_list', navigationView, shareAction);
 listItems.createItems(false, catUrl('latest-pictures'), config.item.imageSize, config.item.marign, latestPhotosTab, 'latest_pictures_list', navigationView, shareAction);
