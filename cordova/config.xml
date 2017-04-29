@@ -9,6 +9,7 @@
   </author>
   <hook type="after_platform_add" src="scripts/android/afterPlatformAdd.js" />
   <platform name="android">
+        <preference name="android-minSdkVersion" value="21" />
         <icon src="res/mipmap-mdpi/ic_launcher.png" density="mdpi" />
         <icon src="res/mipmap-hdpi/ic_launcher.png" density="hdpi" />
         <icon src="res/mipmap-xhdpi/ic_launcher.png" density="xhdpi" />
