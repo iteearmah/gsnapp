@@ -2,6 +2,7 @@ let config = require('../config.js');
 exports.menuItems = function() {
 	let rightarrow = 'ic_arrow_right_blk_48dp.png';
     let menuItems = [
+        ['More News', '', '', 'drawerimage'],//heading
      	['More News', '', '', 'heading'],//heading
         ['Transfer News & Rumours', rightarrow, 'transfer-news-rumours', 'normal'],
         ['Newspapers and Gossip', rightarrow, 'newspapers-gossip', 'normal'],

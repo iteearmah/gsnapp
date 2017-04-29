@@ -33,41 +33,36 @@ exports.loadNewItems = function(view, json_url, key) {
     json_url = json_url + '?page=' + current_page;
     // console.log('news '+json_url);
     utils.getJSON(json_url).then(function(json) {
-        localStorage.setItem(key, JSON.stringify(json));
+        //localStorage.setItem(key, JSON.stringify(json));
         view.insert(json.items);
     });
 }
-exports.fetch_newslist = function(view, json_url, key) {
+exports.fetch_newslist = function(collectionView, json_url, key) {
     utils.getJSON(json_url).then(function(json) {
-        localStorage.setItem(key, JSON.stringify(json));
-        load_news(view, json, key);
+        items = json.items;
+         collectionView.insert(0, items.length);
+        //console.log(JSON.stringify(items));
+        collectionView.itemCount = items.length;
+        return items;
     });
 }
-exports.fetch_other_newslist = function(view, json_url, key) {
+exports.fetch_other_newslist = function(collectionView, json_url, key) {
+    collectionView.refreshIndicator = true;
     utils.getJSON(json_url).then(function(json) {
         //console.log(JSON.stringify(json.items));
-        view.insert(json.items,0);
+        items = json.items;
+        collectionView.itemCount = items.length;
+        collectionView.refreshIndicator = false;
+        return items;
         //localStorage.setItem(key, JSON.stringify(json));
     });
 }
 
-function load_news(view, newsData, key) {
-    newsitems = JSON.parse(localStorage.getItem(key));
-    if (newsitems) {
-        view.set({
-            items: newsitems,
-            refreshIndicator: true,
-            refreshMessage: ""
-        });
-    }
-    newsitems = newsData.items;
-    setTimeout(function() {
-        view.set({
-            items: newsitems,
-            refreshIndicator: false,
-            refreshMessage: "loading..."
-        });
-    }, 3000);
+function load_news(collectionView, newsData, key) {
+    // newsitems = JSON.parse(localStorage.getItem(key));
+    items = newsData;
+    collectionView.itemCount = items.length;
+    collectionView.refreshIndicator = false;
 }
 
 function load_topNews(newsData, key, topStoryImage, topStoryTitle) {
@@ -78,4 +73,10 @@ function load_topNews(newsData, key, topStoryImage, topStoryTitle) {
     });
     topStoryTitle.set("title", "<b>" + newsitems[0].title + "</b>");
     //console.log(newsitems[0].title);
+}
+/////////////////////////////////////////
+exports.getNewsItems = function(json_url, key) {
+    utils.getJSON(json_url).then(function(json) {
+        load_news(view, json, key);
+    });
 }

@@ -8,7 +8,7 @@
     "start": "tabris serve"
   },
   "dependencies": {
-    "tabris": "^2.0.0-beta2"
+    "tabris": "https://tabrisjs.com/downloads/nightly-2.x/tabris.tgz"
   },
   "devDependencies": {
     "eslint": "^3.18.0"

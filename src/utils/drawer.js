@@ -6,92 +6,119 @@ let contact = require('../pages/contactus.js');
 let settings = require('../pages/settings.js');
 exports.createMenu = function(drawer, navigationView, shareAction) {
     //Category Page
-    let drawableImageView = new tabris.ImageView({
-        image: config.item.imagePath + "/drawer_header.jpg",
-        scaleMode: "fill",
+    let items = drawerMenu.menuItems();
+    let scrollView = new tabris.ScrollView({
         left: 0,
-        right: 0,
         top: 0,
-        height: 200
+        right: 0,
+        bottom: 0,
+        direction: 'vertical',
     }).appendTo(drawer);
     let collectionView = new tabris.CollectionView({
         left: 0,
-        top: [drawableImageView, 0],
+        top: 0,
         right: 0,
-        background:'#ededed',
+        background: '#ededed',
+        itemCount: items.length,
         bottom: config.item.bottom_banner_margin,
-        items: drawerMenu.menuItems(),
-        itemHeight: function(item, type) {
-            return type === 'heading' ? 35 : 40;
-        },
-        cellType: function(item) {
-            return item.type;
-        },
-        initializeCell: function(cell, type) {
-            //console.log(type);
+        cellType: index => items[index].type,
+        cellHeight: (index, type) => {
+            type === 'heading' ? 35 : 40
             if (type === 'heading') {
-                headingcell(cell);
+                return 35;
+            } else if (type === 'drawerimage') {
+                return 200;
             } else {
-                initializeStandardCell(cell);
+                return 40;
+            }
+        },
+        createCell: (type) => {
+            let cell = new tabris.Composite({
+                highlightOnTouch: true
+            });
+            if (type === 'heading') {
+                return headingcell(cell);
+            } else if (type == 'drawerimage') {
+                let drawableImageView = new tabris.ImageView({
+                    scaleMode: "fill",
+                    left: 0,
+                    id: 'drawerimage',
+                    right: 0,
+                    top: 0,
+                    height: 200
+                }).appendTo(cell);
+                return cell;
+            } else {
+                return initializeStandardCell(cell);
+            }
+        },
+        updateCell: (view, index) => {
+            let item = items[index];
+            collectionView.itemCount = items.length;
+            if (item.type === 'drawerimage' && index == 0) {
+                view.find('#drawerimage').set('image', {
+                    src: config.item.imagePath + "/drawer_header.jpg"
+                });
+            } else {
+                view.find('#menuImage').set('image', {
+                    src: item.image,
+                    scaleMode: 1
+                });
+                view.find('#menuText').set('text', item.title);
+                view.find('#drawerMenuHeading').set('text', '<b>' + item.title + '</b>');
             }
         }
     }).on('select', function({
-        item
+        index
     }) {
+        let item = items[index];
+        //analytics
+        window.ga.startTrackerWithId(config.item.googleAnalytics);
         window.ga.trackView(item.slug);
+        window.ga.setUserId(tabris.app.id);
+        window.ga.setAppVersion(tabris.app.version);
         if (item.type == 'normal') {
-        	if(item.slug == 'about')
-        	{
-        		aboutus.show(navigationView);
-        	}
-        	else if(item.slug == 'contact')
-        	{
-        		contact.show(navigationView);
-        	}
-            else if(item.slug == 'settings')
-            {
+            if (item.slug == 'about') {
+                aboutus.show(navigationView);
+            } else if (item.slug == 'contact') {
+                contact.show(navigationView);
+            } else if (item.slug == 'settings') {
                 settings.show(navigationView);
+            } else {
+                let categoryPage = new tabris.Page({
+                    title: item.title,
+                    image: {
+                        src: config.item.imagePath + '/' + config.item.appLogo,
+                        scale: 3
+                    }
+                }).appendTo(navigationView);
+                let url = config.item.apiUrl + '/category/' + item.slug;;
+                listItems.createItems(true, url, config.item.imageSize, config.item.marign, categoryPage, item.slug + '_list', navigationView, shareAction);
             }
-        	else
-        	{
-        		let categoryPage = new tabris.Page({
-                title: item.title,
-                image: {
-                    src: config.item.imagePath + '/' + config.item.appLogo,
-                    scale: 3
-                }
-            }).appendTo(navigationView);
-            let url = config.item.apiUrl + '/category/' + item.slug;;
-            listItems.createItems(true, url, config.item.imageSize, config.item.marign, categoryPage, item.slug + '_list', navigationView, shareAction);
-        	}
-            
             drawer.close();
         }
-    }).appendTo(drawer);
-
-   /* let drawerBottom = new tabris.Composite({
-        height:config.item.bottom_banner_margin,
-        left: 0,
-        right: 0,
-        top: [collectionView, 0],
-        background: '#ededed'
-    }).appendTo(drawer);*/
-
-   /* let drawerBottomText = new tabris.TextView({
-        left: 10,
-        right: 0,
-        top: 15,
-        textColor:'#fff',
-        text:config.item.appDomain
-    }).appendTo(drawerBottom);*/
-
+    }).appendTo(scrollView);
+    /* let drawerBottom = new tabris.Composite({
+         height:config.item.bottom_banner_margin,
+         left: 0,
+         right: 0,
+         top: [collectionView, 0],
+         background: '#ededed'
+     }).appendTo(drawer);*/
+    /* let drawerBottomText = new tabris.TextView({
+         left: 10,
+         right: 0,
+         top: 15,
+         textColor:'#fff',
+         text:config.item.appDomain
+     }).appendTo(drawerBottom);*/
     function initializeStandardCell(cell) {
-        cell.highlightOnTouch = true;
         let imageView = new tabris.ImageView({
             width: 10,
             left: 2,
             bottom: 0,
             top: 0,
+            id: 'menuImage',
             left: 10,
             scaleMode: "fit",
         }).appendTo(cell);
@@ -99,19 +126,12 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
             top: 9,
             left: [imageView, 5],
             right: 5,
+            id: 'menuText',
             markupEnabled: true,
             /*font: "16px Arial, sans-serif",*/
             textColor: "#000",
         }).appendTo(cell);
-        cell.on('change:item', function({
-            value: menuItem
-        }) {
-            textView.text = menuItem.title;
-            imageView.image = {
-                src: menuItem.image,
-                scale: 1
-            };
-        });
+        return cell;
     }
 
     function headingcell(cell) {
@@ -122,12 +142,9 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
             bottom: 5,
             markupEnabled: true,
             textColor: "#fff",
+            id: 'drawerMenuHeading'
         }).appendTo(cell);
         cell.background = config.item.primaryBgColor;
-        cell.on('change:item', function({
-            value: menuItem
-        }) {
-            textView.text = '<b>'+menuItem.title+'</b>';
-        });
+        return cell;
     }
 }

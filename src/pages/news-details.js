@@ -2,9 +2,9 @@ let utils = require('../utils/fetchdata.js');
 let config = require('../config.js');
 exports.news_readPage = function(newsItem, shareAction) {
     shareAction.visible = true;
-    let MARGIN_SMALL = 14;
-    let MARGIN = 10;
-    let INITIAL_TITLE_COMPOSITE_OPACITY = 0.85;
+    const MARGIN_SMALL = 14;
+    const MARGIN = 10;
+    const INITIAL_TITLE_COMPOSITE_OPACITY = 0.85;
     let newsDetailpage = new tabris.Page({
         title: 'News'
     }).once("resize", function() { // TODO: used "resize" event as workaround for tabris-js#597
@@ -53,7 +53,7 @@ exports.news_readPage = function(newsItem, shareAction) {
     }).appendTo(titleComposite);
     let periodIcon = new tabris.ImageView({
         width: 20,
-        left: 5,
+        left: MARGIN,
         top: [newsTitle, 8],
         image: config.item.imagePath + '/' + 'ic_time_black_24dp.png',
         scaleMode: "fill"
@@ -174,7 +174,7 @@ function testUrlForMedia(pastedData) {
     return false;
 }
 
-function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComposite, titleComposite, period,imageComposite) {
+function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComposite, titleComposite, period, imageComposite) {
     activityIndicator.visible = true;
     let article = '';
     json_url = config.item.apiUrl + '/post/' + newsItem.id;
@@ -204,6 +204,11 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
                 newsArticle.text = 'Video couldn\'t be played. <p><a href="' + newsItem.link + '">Watch in browser</a></p>';
             }
         } else {
+            window.ga.startTrackerWithId(config.item.googleAnalytics);
+            window.ga.trackView(newsItem.title);
+            window.ga.setUserId(tabris.app.id);
+            window.ga.setAppVersion(tabris.app.version);
+            
             let articleArticle = data.article;
             newsArticle.text = articleArticle;
             if (data.video) {
@@ -229,16 +234,24 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
                         }
                     }).appendTo(titleComposite);
                 }
-               /* let videoPlayIcon = new tabris.ImageView({
-                    centerX: 0,
-                    centerY: 0,
-                    image: {
-                        src: config.item.imagePath + '/ic_play_circle_outline_white_48dp.png',
-                        height: 50,
-                    },
-                }).appendTo(imageComposite);*/
+                /* let videoPlayIcon = new tabris.ImageView({
+                     centerX: 0,
+                     centerY: 0,
+                     image: {
+                         src: config.item.imagePath + '/ic_play_circle_outline_white_48dp.png',
+                         height: 50,
+                     },
+                 }).appendTo(imageComposite);*/
             }
-            if (data.photos) {
+            if (data.photos.length > 0) {
+                let photosLabel = new tabris.TextView({
+                    left: 10,
+                    top: ["prev()", 0],
+                    right: 0,
+                    markupEnabled: true,
+                    text: '<b>Photos Below</b>',
+                    font: "23px",
+                }).appendTo(contentComposite);
                 for (let i = 0; i < data.photos.length; i++) {
                     createphotos(data.photos[i], contentComposite, i);
                 }
