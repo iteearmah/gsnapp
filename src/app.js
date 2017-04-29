@@ -71,11 +71,6 @@ let nationalTeamTab = tabs.createTab('National Teams', tabFolder);
 let latestVideosTab = tabs.createTab('Videos', tabFolder);
 let latestPhotosTab = tabs.createTab('Photos', tabFolder);
 
-
-tabFolder.on('change:selection', function({value: tab}) {
-  console.log(tab.title);
-});
-
 //Tab listings
 window.plugins.OneSignal.startInit().inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification).endInit();
 window.plugins.OneSignal.startInit("e07acd71-e6f4-45ab-807e-6af82c1912d4").handleNotificationOpened(function(jsonData) {
