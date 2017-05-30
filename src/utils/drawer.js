@@ -34,7 +34,7 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
         },
         createCell: (type) => {
             let cell = new tabris.Composite({
-                highlightOnTouch: true
+                /*highlightOnTouch: true*/
             });
             if (type === 'heading') {
                 return headingcell(cell);

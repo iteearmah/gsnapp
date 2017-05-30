@@ -15,6 +15,7 @@ let detail_page = require("./pages/news-details.js");
 let drawer = tabris.ui.drawer;
 drawer.enabled = true;
 //drawer.locked = false;
+//https://tabrisjs.com/downloads/nightly-2.x/tabris.tgz
 ui.statusBar.background = config.item.primaryBgColor; //set statusbar color
 let navigationView = new NavigationView({
     left: 0,

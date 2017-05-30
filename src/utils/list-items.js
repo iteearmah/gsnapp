@@ -19,7 +19,7 @@ exports.createItems = function(firstsection = false, json_url, image_size, margi
                 cornerRadius: 2,
                 background: 'white',
                 elevation: 2,
-                highlightOnTouch: true
+                /*highlightOnTouch: true*/
             });
             //console.log('tabID:' + tabID);
             return initializeStandardCell(cell, image_size, margin, tabID);
