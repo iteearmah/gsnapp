@@ -2,7 +2,7 @@ let loadFeed = require("./load.feed.js");
 let utils = require("./fetchdata.js");
 let detail_page = require("../pages/news-details.js");
 let config = require('../config.js');
-exports.createItems = function(firstsection = false, json_url, image_size, margin, target_page, tabID, navigationView) {
+exports.createItems = function(firstsection = false, json_url, image_size, margin, target_page, tabID, navigationView, shareAction) {
     let loading;
     let items = [];
     localStorage.setItem('current_page_' + tabID, 1);
@@ -20,14 +20,12 @@ exports.createItems = function(firstsection = false, json_url, image_size, margi
         cellType: index => items[index].loading ? 'loading' : 'normal',
         createCell: (type) => {
             if (type === 'normal') {
-                return createItemCell(image_size, margin, tabID, detail_page, navigationView);
+                return createItemCell(image_size, margin, tabID, detail_page, navigationView,shareAction);
             }
             return createLoadingCell();
-            //return createItemCell(image_size, margin, tabID);
         },
         updateCell: (view, index) => {
             let item = items[index];
-            //console.log(JSON.stringify(item.title));
             if (!(item.loading)) {
                 view.find('#' + tabID + '_container').first().item = item;
                 view.find('#' + tabID + '_thumbImage').set('image', {
@@ -94,14 +92,14 @@ exports.createItems = function(firstsection = false, json_url, image_size, margi
         return new tabris.Composite();
     }
 
-    function createDetailsPage(item, detail_page, navigationView) {
+    function createDetailsPage(item, detail_page, navigationView,shareAction) {
         //console.log(JSON.stringify(item));
-        let newsDetailPage = detail_page.news_readPage(item);
+        let newsDetailPage = detail_page.news_readPage(item,shareAction);
         newsDetailPage.title = item.title;
         newsDetailPage.appendTo(navigationView);
     }
 
-    function createItemCell(image_size, margin, tabID, detail_page, navigationView) {
+    function createItemCell(image_size, margin, tabID, detail_page, navigationView,shareAction) {
         let cell = new tabris.Composite();
         let container = new tabris.Composite({
             id: tabID + '_container',
@@ -116,7 +114,7 @@ exports.createItems = function(firstsection = false, json_url, image_size, margi
         }).appendTo(cell);
         container.on('tap', ({
             target: view
-        }) => createDetailsPage(view.item, detail_page, navigationView))
+        }) => createDetailsPage(view.item, detail_page, navigationView,shareAction));
         let imageView = new tabris.ImageView({
             left: 5,
             top: 5,

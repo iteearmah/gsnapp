@@ -1,7 +1,7 @@
 let utils = require('../utils/fetchdata.js');
 let config = require('../config.js');
-exports.news_readPage = function(newsItem/*, shareAction*/) {
-    //shareAction.visible = true;
+exports.news_readPage = function(newsItem, shareAction) {
+    shareAction.visible = true;
     const MARGIN_SMALL = 14;
     const MARGIN = 10;
     const INITIAL_TITLE_COMPOSITE_OPACITY = 0.85;
@@ -11,10 +11,10 @@ exports.news_readPage = function(newsItem/*, shareAction*/) {
         //tabris.ui.set("toolbarVisible", false);
     });
     newsDetailpage.on("appear", function() {
-        //actionShareVisbility(shareAction, true);
+        actionShareVisbility(shareAction, true);
     })
     newsDetailpage.on("disappear", function() {
-       //actionShareVisbility(shareAction, false);
+        actionShareVisbility(shareAction, false);
     });
     let scrollView = new tabris.ScrollView({
         left: 0,
@@ -84,9 +84,9 @@ exports.news_readPage = function(newsItem/*, shareAction*/) {
         centerX: 0,
         centerY: 0
     }).appendTo(newsDetailpage);
-    /*shareAction.on("select", function() {
+    shareAction.on("select", function() {
         window.plugins.socialsharing.share(newsItem.title, newsItem.title, null, newsItem.link);
-    });*/
+    });
     scrollView.on("resize", function({
         height
     }) {
@@ -194,21 +194,20 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
                 right: 0,
                 text: 'Play Video'
             }).on('select', function() {
-                //YoutubeVideoPlayer.openVideo(videoId);
+                YoutubeVideoPlayer.openVideo(videoId);
                 //VideoPlayer.play("https://www.youtube.com/watch?v=" + videoId);
             }).appendTo(contentComposite);
             if (videoId) {
                 //VideoPlayer.play("https://www.youtube.com/watch?v=" + videoId);
-                //YoutubeVideoPlayer.openVideo(videoId);
+                YoutubeVideoPlayer.openVideo(videoId);
             } else {
                 newsArticle.text = 'Video couldn\'t be played. <p><a href="' + newsItem.link + '">Watch in browser</a></p>';
             }
         } else {
-            /*window.ga.startTrackerWithId(config.item.googleAnalytics);
+            window.ga.startTrackerWithId(config.item.googleAnalytics);
             window.ga.trackView(newsItem.title);
             window.ga.setUserId(tabris.app.id);
-            window.ga.setAppVersion(tabris.app.version);*/
-            
+            window.ga.setAppVersion(tabris.app.version);
             let articleArticle = data.article;
             newsArticle.text = articleArticle;
             if (data.video) {
@@ -234,14 +233,16 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
                         }
                     }).appendTo(titleComposite);
                 }
-                /* let videoPlayIcon = new tabris.ImageView({
-                     centerX: 0,
-                     centerY: 0,
-                     image: {
-                         src: config.item.imagePath + '/ic_play_circle_outline_white_48dp.png',
-                         height: 50,
-                     },
-                 }).appendTo(imageComposite);*/
+                let videoPlayIcon = new tabris.ImageView({
+                    centerX: 0,
+                    centerY: 0,
+                    image: {
+                        src: config.item.imagePath + '/ic_play_circle_outline_white_48dp.png',
+                        height: 50,
+                    },
+                }).on('tap', ({
+                    target: view
+                }) => YoutubeVideoPlayer.openVideo(videoId)).appendTo(imageComposite);
             }
             if (data.photos.length > 0) {
                 let photosLabel = new tabris.TextView({
@@ -250,7 +251,7 @@ function fetch_newsDetails(newsItem, newsArticle, activityIndicator, contentComp
                     right: 0,
                     markupEnabled: true,
                     text: '<b>Photos Below</b>',
-                    font: "17px",
+                    font: "19px",
                 }).appendTo(contentComposite);
                 for (let i = 0; i < data.photos.length; i++) {
                     createphotos(data.photos[i], contentComposite, i);
@@ -268,9 +269,9 @@ function actionShareVisbility(shareAction, isVisible) {
 
 function createphotos(photoSrc, wParent, photoIndex) {
     let photoView = new tabris.ImageView({
-        left: 0,
+        left: 10,
         top: ["prev()", 2],
-        right: 0,
+        right: 10,
         scaleMode: "fill",
         image: {
             src: photoSrc

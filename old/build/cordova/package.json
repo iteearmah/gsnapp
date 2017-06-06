@@ -1,0 +1,13 @@
+{
+    "name": "com.ghanasoccernet",
+    "version": "0.1.11",
+    "displayName": "GhanaSoccernet",
+    "cordova": {
+        "platforms": [
+            "android"
+        ]
+    },
+    "dependencies": {
+        "cordova-android": "/home/itee/tabris-android"
+    }
+}
