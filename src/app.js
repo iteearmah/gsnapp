@@ -29,23 +29,14 @@ let navigationView = new NavigationView({
 function catUrl(category = 'latest-news') {
     return config.item.apiUrl + '/category/' + category;
 }
-var shareAction = new tabris.Action({
-    id: "shareaction",
-    title: "Share",
-    visible: false,
-    image: {
-        src: config.item.imagePath + "/ic_share_white_48dp.png",
-        scale: 3
-    }
-}).appendTo(navigationView);
-drawerMenu.createMenu(drawer, navigationView, shareAction);
+//drawerMenu.createMenu(drawer, navigationView);
 //check connection of app
 //interConnection.check();
 //Main Page
 let mainPage = new tabris.Page({
     /*title: config.item.appTitle,*/
     image: {
-        src: config.item.imagePath + '/' + config.item.appLogo,
+        src: config.item.appLogo,
         scale: 3
     }
 }).appendTo(navigationView);
@@ -72,74 +63,10 @@ let nationalTeamTab = tabs.createTab('National Teams', tabFolder);
 let latestVideosTab = tabs.createTab('Videos', tabFolder);
 let latestPhotosTab = tabs.createTab('Photos', tabFolder);
 
-//Tab listings
-window.plugins.OneSignal.startInit().inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification).endInit();
-window.plugins.OneSignal.startInit("e07acd71-e6f4-45ab-807e-6af82c1912d4").handleNotificationOpened(function(jsonData) {
-    //console.log('didOpenRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-    if (jsonData.notification.payload) {
-        let newsDetailPage = detail_page.news_readPage(jsonData.notification.payload.additionalData, shareAction);
-        newsDetailPage.title = jsonData.notification.payload.title + ' - News';
-        newsDetailPage.appendTo(navigationView);
-    }
-}).inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.None).endInit();
-admob.initAdmob(config.item.bottom_banner, config.item.Interstitial);
-admob.cacheInterstitial(); // load admob Interstitial
-admob.showBanner(admob.BannerSize.SMART_BANNER, admob.Position.BOTTOM_CENTER);
-let adTimer;
-adTimer = setInterval(function() {
-    admob.cacheInterstitial(); // load admob Interstitial
-    admob.isInterstitialReady(function(isReady) {
-        admob.showInterstitial();
-    });
-    //window.plugins.toast.showLongBottom('Main');
-}, (1000 * 60) * 2);
-tabris.app.on('foreground', function() {
-    adTimer = setInterval(function() {
-        admob.cacheInterstitial(); // load admob Interstitial
-        admob.isInterstitialReady(function(isReady) {
-            admob.showInterstitial();
-        });
-        //window.plugins.toast.showLongBottom('foreground mode one');
-    }, (1000 * 60) * 2);
-}).on('pause', function() {
-    clearInterval(adTimer);
-});
-/*admob.setOptions({
-    overlap: true,
-});
-admob.banner.config({
-    id: config.item.bottom_banner,
-})
-// Create banner
-admob.banner.prepare();
-// Show the banner
-admob.banner.show();
-admob.interstitial.config({
-    id: config.item.Interstitial,
-})
-let adTimer;
-adTimer = setInterval(function() {
-    admob.interstitial.prepare();
-    admob.interstitial.show()
-    //window.plugins.toast.showLongBottom('Main');
-}, (1000 * 60) * 2);
-tabris.app.on('foreground', function() {
-    adTimer = setInterval(function() {
-        admob.interstitial.prepare();
-        admob.interstitial.show();
-        //window.plugins.toast.showLongBottom('foreground mode one');
-    }, (1000 * 60) * 2);
-}).on('pause', function() {
-    clearInterval(adTimer);
-});*/
-window.ga.startTrackerWithId(config.item.googleAnalytics);
-window.ga.trackView('Listing Section');
-window.ga.setUserId(tabris.app.id);
-window.ga.setAppVersion(tabris.app.version);
-listItems.createItems(true, catUrl('latest-news'), config.item.imageSize, config.item.marign, latestNewsTab, 'latestnews_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('world-football'), config.item.imageSize, config.item.marign, worldfootballTab, 'worldfootball_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('ghana-players-abroad'), config.item.imageSize, config.item.marign, ghPlayersAbroadTab, 'ghplayersabroad_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('ghana-prem-league'), config.item.imageSize, config.item.marign, ghPremLeagueTab, 'ghpremleague_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('national-teams'), config.item.imageSize, config.item.marign, nationalTeamTab, 'national_teams_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('latest-videos'), config.item.imageSize, config.item.marign, latestVideosTab, 'latest_videos_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('latest-pictures'), config.item.imageSize, config.item.marign, latestPhotosTab, 'latest_pictures_list', navigationView, shareAction);
+listItems.createItems(true, catUrl('latest-news'), config.item.imageSize, config.item.marign, latestNewsTab, 'latestnews_list', navigationView);
+listItems.createItems(false, catUrl('world-football'), config.item.imageSize, config.item.marign, worldfootballTab, 'worldfootball_list', navigationView);
+listItems.createItems(false, catUrl('ghana-players-abroad'), config.item.imageSize, config.item.marign, ghPlayersAbroadTab, 'ghplayersabroad_list', navigationView);
+listItems.createItems(false, catUrl('ghana-prem-league'), config.item.imageSize, config.item.marign, ghPremLeagueTab, 'ghpremleague_list', navigationView);
+listItems.createItems(false, catUrl('national-teams'), config.item.imageSize, config.item.marign, nationalTeamTab, 'national_teams_list', navigationView);
+listItems.createItems(false, catUrl('latest-videos'), config.item.imageSize, config.item.marign, latestVideosTab, 'latest_videos_list', navigationView);
+listItems.createItems(false, catUrl('latest-pictures'), config.item.imageSize, config.item.marign, latestPhotosTab, 'latest_pictures_list', navigationView);

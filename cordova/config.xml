@@ -7,28 +7,4 @@
   <author email="iteearmah@gmail.com">
     Samuel Armah
   </author>
-  <hook type="after_platform_add" src="scripts/android/afterPlatformAdd.js" />
-  <platform name="android">
-        <icon src="res/mipmap-mdpi/ic_launcher.png" density="mdpi" />
-        <icon src="res/mipmap-hdpi/ic_launcher.png" density="hdpi" />
-        <icon src="res/mipmap-xhdpi/ic_launcher.png" density="xhdpi" />
-        <icon src="res/mipmap-xxhdpi/ic_launcher.png" density="xxhdpi" />
-        <icon src="res/mipmap-xxxhdpi/ic_launcher.png" density="xxxhdpi" />
-        <splash src="res/splash.png" />
-</platform>
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
-    <allow-intent href="market:*" />
-    <plugin name="onesignal-cordova-plugin"/>
-    <plugin name="cordova-plugin-inappbrowser"/>
-  <plugin name="cordova-plugin-network-information"/>
-  <plugin name="cordova-plugin-x-toast"/>
-  <plugin name="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git"/>
-  <plugin name="https://github.com/Glitchbone/CordovaYoutubeVideoPlayer.git"/>
-  <plugin name="https://github.com/iteearmah/admob-cordova.git"/>
-  <plugin name="cordova-plugin-google-analytics"/>
 </widget>

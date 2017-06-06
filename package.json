@@ -1,5 +1,5 @@
 {
-  "name": "soccer",
+  "name": "gsn",
   "version": "0.1.0",
   "main": "src/app.js",
   "private": true,
@@ -8,9 +8,9 @@
     "start": "tabris serve"
   },
   "dependencies": {
-    "tabris": "^2.0.0-rc1"
+    "tabris": "^2.0.0-beta2"
   },
   "devDependencies": {
-    "eslint": "^3.18.0"
+    "eslint": "^3.19.0"
   }
 }
