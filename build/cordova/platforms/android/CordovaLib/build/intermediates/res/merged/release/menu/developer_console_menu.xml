@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_refresh_gray_24dp"
+        android:id="@+id/developer_console_action_restart"
+        app:showAsAction="always"
+        android:title="Restart" />
+    <item
+        android:icon="@drawable/ic_home_gray_24dp"
+        android:id="@+id/developer_console_action_home"
+        app:showAsAction="never"
+        android:title="Home" />
+    <item
+        android:icon="@drawable/ic_pin_gray_24dp"
+        android:id="@+id/developer_console_action_pin"
+        app:showAsAction="never"
+        android:checkable="true"
+        android:title="Pin console" />
+    <item
+        android:id="@+id/developer_console_action_filter_log"
+        app:showAsAction="never"
+        android:title="Filter log" />
+    <item
+        android:id="@+id/developer_console_action_clear_log"
+        app:showAsAction="never"
+        android:title="Clear log" />
+    <item
+        android:id="@+id/developer_console_action_share_log"
+        app:showAsAction="never"
+        android:title="Share log…" />
+</menu>

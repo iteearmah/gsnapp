@@ -1,0 +1,16 @@
+{
+  "name": "gsn",
+  "version": "0.1.0",
+  "main": "src/app.js",
+  "private": true,
+  "scripts": {
+    "test": "eslint .",
+    "start": "tabris serve"
+  },
+  "dependencies": {
+    "tabris": "^2.0.0-rc1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0"
+  }
+}

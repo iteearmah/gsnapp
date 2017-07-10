@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.ghanasoccernet" version="0.1.12" xmlns="http://www.w3.org/ns/widgets">
+    <widget>
+        <feature name="YoutubeVideoPlayer">
+            <param name="android-package" value="com.bunkerpalace.cordova.YoutubeVideoPlayer" />
+        </feature>
+    </widget>
+    <feature name="admob">
+        <param name="android-package" value="com.admob.cordova.plugin.AdmobAdPlugin" />
+    </feature>
+    <feature name="UniversalAnalytics">
+        <param name="android-package" value="com.danielcwilson.plugins.analytics.UniversalAnalyticsPlugin" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <feature name="Toast">
+        <param name="android-package" value="nl.xservices.plugins.Toast" />
+    </feature>
+    <feature name="SocialSharing">
+        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+    </feature>
+    <name>GhanaSoccernet</name>
+    <description>
+    Ghana football, Ghana soccer, Ghana football news, scores, stats, and features from the Ghana's leading football website, GHANAsoccernet.com
+  </description>
+    <author email="iteearmah@gmail.com">
+    Samuel Armah
+  </author>
+    <hook src="scripts/android/afterPlatformAdd.js" type="after_platform_add" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <allow-intent href="market:*" />
+    <icon density="mdpi" src="res/mipmap-mdpi/ic_launcher.png" />
+    <icon density="hdpi" src="res/mipmap-hdpi/ic_launcher.png" />
+    <icon density="xhdpi" src="res/mipmap-xhdpi/ic_launcher.png" />
+    <icon density="xxhdpi" src="res/mipmap-xxhdpi/ic_launcher.png" />
+    <icon density="xxxhdpi" src="res/mipmap-xxxhdpi/ic_launcher.png" />
+    <splash src="res/splash.png" />
+    <preference name="loglevel" value="DEBUG" />
+</widget>

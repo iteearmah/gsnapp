@@ -1,0 +1,20 @@
+{
+    "name": "com.ghanasoccernet",
+    "version": "0.1.12",
+    "displayName": "GhanaSoccernet",
+    "cordova": {
+        "platforms": [
+            "android"
+        ],
+        "plugins": {
+            "cordova-plugin-inappbrowser": {},
+            "cordova-plugin-network-information": {},
+            "cordova-plugin-x-toast": {},
+            "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git": {}
+        }
+    },
+    "dependencies": {
+        "cordova-android": "/home/itee/tabris-android",
+        "cordova-plugin-x-socialsharing": "git+https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git"
+    }
+}
