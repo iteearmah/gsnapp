@@ -7,6 +7,9 @@
         "files": {}
     },
     "installed_plugins": {
+        "onesignal-cordova-plugin": {
+            "PACKAGE_NAME": "com.ghanasoccernet"
+        },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.ghanasoccernet"
         },

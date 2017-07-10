@@ -26,6 +26,14 @@ module.exports = [
         ]
     },
     {
+        "id": "onesignal-cordova-plugin.OneSignal",
+        "file": "plugins/onesignal-cordova-plugin/www/OneSignal.js",
+        "pluginId": "onesignal-cordova-plugin",
+        "clobbers": [
+            "OneSignal"
+        ]
+    },
+    {
         "id": "cordova-plugin-inappbrowser.inappbrowser",
         "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
         "pluginId": "cordova-plugin-inappbrowser",
@@ -85,6 +93,7 @@ module.exports.metadata =
     "com.bunkerpalace.cordova.YoutubeVideoPlayer": "1.0.1",
     "admob": "5.5.0",
     "cordova-plugin-google-analytics": "1.8.2",
+    "onesignal-cordova-plugin": "2.1.2",
     "cordova-plugin-inappbrowser": "1.7.1",
     "cordova-plugin-network-information": "1.3.3",
     "cordova-plugin-x-toast": "2.6.0",

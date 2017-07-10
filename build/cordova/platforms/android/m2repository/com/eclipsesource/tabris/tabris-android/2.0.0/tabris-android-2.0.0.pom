@@ -40,19 +40,19 @@
     <dependency>
       <groupId>com.android.support.constraint</groupId>
       <artifactId>constraint-layout</artifactId>
-      <version>1.0.2</version>
+      <version>1.1.0-beta1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
       <artifactId>okhttp</artifactId>
-      <version>3.6.0</version>
+      <version>3.7.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
       <artifactId>okhttp-urlconnection</artifactId>
-      <version>3.6.0</version>
+      <version>3.7.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -76,7 +76,7 @@
     <dependency>
       <groupId>com.eclipsesource.j2v8</groupId>
       <artifactId>j2v8</artifactId>
-      <version>4.7.0-SNAPSHOT</version>
+      <version>4.8.0-SNAPSHOT</version>
       <type>aar</type>
       <scope>compile</scope>
       <exclusions>

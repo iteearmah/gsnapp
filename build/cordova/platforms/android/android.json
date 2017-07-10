@@ -23,6 +23,10 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"OneSignalPush\"><param name=\"android-package\" value=\"com.plugin.gcm.OneSignalPush\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
                         },
@@ -46,6 +50,18 @@
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"com.amazon.device.messaging.permission.RECEIVE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<permission android:name=\"com.ghanasoccernet.permission.RECEIVE_ADM_MESSAGE\" android:protectionLevel=\"signature\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"com.ghanasoccernet.permission.RECEIVE_ADM_MESSAGE\" />",
                             "count": 1
                         }
                     ],
@@ -76,6 +92,18 @@
                         },
                         {
                             "xml": "<service android:enabled=\"true\" android:exported=\"false\" android:name=\"com.google.android.gms.analytics.CampaignTrackingService\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<amazon:enable-feature android:name=\"com.amazon.device.messaging\" android:required=\"false\" xmlns:amazon=\"http://schemas.amazon.com/apk/res/android\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:exported=\"false\" android:name=\"com.onesignal.ADMMessageHandler\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<receiver android:name=\"com.onesignal.ADMMessageHandler$Receiver\" android:permission=\"com.amazon.device.messaging.permission.SEND\"><intent-filter><action android:name=\"com.amazon.device.messaging.intent.REGISTRATION\" /><action android:name=\"com.amazon.device.messaging.intent.RECEIVE\" /><category android:name=\"com.ghanasoccernet\" /></intent-filter></receiver>",
                             "count": 1
                         },
                         {
@@ -113,6 +141,9 @@
             "PACKAGE_NAME": "com.ghanasoccernet"
         },
         "cordova-plugin-google-analytics": {
+            "PACKAGE_NAME": "com.ghanasoccernet"
+        },
+        "onesignal-cordova-plugin": {
             "PACKAGE_NAME": "com.ghanasoccernet"
         },
         "cordova-plugin-inappbrowser": {
@@ -156,6 +187,14 @@
             "clobbers": [
                 "analytics",
                 "ga"
+            ]
+        },
+        {
+            "id": "onesignal-cordova-plugin.OneSignal",
+            "file": "plugins/onesignal-cordova-plugin/www/OneSignal.js",
+            "pluginId": "onesignal-cordova-plugin",
+            "clobbers": [
+                "OneSignal"
             ]
         },
         {
@@ -216,6 +255,7 @@
         "com.bunkerpalace.cordova.YoutubeVideoPlayer": "1.0.1",
         "admob": "5.5.0",
         "cordova-plugin-google-analytics": "1.8.2",
+        "onesignal-cordova-plugin": "2.1.2",
         "cordova-plugin-inappbrowser": "1.7.1",
         "cordova-plugin-network-information": "1.3.3",
         "cordova-plugin-x-toast": "2.6.0",

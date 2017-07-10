@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ghanasoccernet" version="0.1.12">
+<widget id="com.ghanasoccernet" version="0.1.15">
   <name>GhanaSoccernet</name>
   <description>
     Ghana football, Ghana soccer, Ghana football news, scores, stats, and features from the Ghana's leading football website, GHANAsoccernet.com
@@ -14,7 +14,12 @@
         <icon src="res/mipmap-xhdpi/ic_launcher.png" density="xhdpi" />
         <icon src="res/mipmap-xxhdpi/ic_launcher.png" density="xxhdpi" />
         <icon src="res/mipmap-xxxhdpi/ic_launcher.png" density="xxxhdpi" />
-        <splash src="res/splash.png" />
+        <splash src="res/res-mipmap/mipmap-hdpi/splash.png" density="hdpi" />
+        <splash src="res/res-mipmap/mipmap-ldpi/splash.png" density="ldpi" />
+        <splash src="res/res-mipmap/mipmap-mdpi/splash.png" density="mdpi" />
+        <splash src="res/res-mipmap/mipmap-xhdpi/splash.png" density="xhdpi" />
+        <splash src="res/res-mipmap/mipmap-xxhdpi/splash.png" density="xxhdpi" />
+        <splash src="res/res-mipmap/mipmap-xxxhdpi/splash.png" density="xxxhdpi" />
 </platform>
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -23,6 +28,8 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
+    <preference name="EnableDeveloperConsole" value="true" />
+    <plugin name="onesignal-cordova-plugin"/>
     <plugin name="cordova-plugin-inappbrowser"/>
   <plugin name="cordova-plugin-network-information"/>
   <plugin name="cordova-plugin-x-toast"/>
