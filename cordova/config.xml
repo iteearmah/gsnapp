@@ -34,4 +34,5 @@
   <plugin name="cordova-plugin-network-information"/>
   <plugin name="cordova-plugin-x-toast"/>
   <plugin name="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git"/>
+  
 </widget>
