@@ -38,7 +38,6 @@ var shareAction = new tabris.Action({
         scale: 3
     }
 }).appendTo(navigationView);
-drawerMenu.createMenu(drawer, navigationView,shareAction);
 //check connection of app
 //interConnection.check();
 //Main Page
@@ -61,9 +60,9 @@ let tabFolder = new TabFolder({
     tabBarLocation: 'auto',
     /*elevation: 4*/
 });
-tabFolder.appendTo(mainPage);
-window.plugins.OneSignal.startInit().inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification).endInit();
-window.plugins.OneSignal.startInit("e07acd71-e6f4-45ab-807e-6af82c1912d4").handleNotificationOpened(function(jsonData) {
+
+//window.plugins.OneSignal.startInit("e07acd71-e6f4-45ab-807e-6af82c1912d4").inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.None).endInit();
+/*window.plugins.OneSignal.startInit("e07acd71-e6f4-45ab-807e-6af82c1912d4").handleNotificationOpened(function(jsonData) {
     //console.log('didOpenRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
     if (jsonData.notification.payload) {
         let newsDetailPage = detail_page.news_readPage(jsonData.notification.payload.additionalData, shareAction);
@@ -72,51 +71,58 @@ window.plugins.OneSignal.startInit("e07acd71-e6f4-45ab-807e-6af82c1912d4").handl
     }
 }).inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.None).endInit();
 
-admob.initAdmob(config.item.bottom_banner, config.item.Interstitial);
-admob.cacheInterstitial(); // load admob Interstitial
-admob.showBanner(admob.BannerSize.SMART_BANNER, admob.Position.BOTTOM_CENTER);
-let adTimer;
-adTimer = setInterval(function() {
-    admob.cacheInterstitial(); // load admob Interstitial
-    admob.isInterstitialReady(function(isReady) {
-        admob.showInterstitial();
-    });
-    //window.plugins.toast.showLongBottom('Main');
-}, (1000 * 60) * 2);
-tabris.app.on('foreground', function() {
-    adTimer = setInterval(function() {
-        admob.cacheInterstitial(); // load admob Interstitial
-        admob.isInterstitialReady(function(isReady) {
-            admob.showInterstitial();
-        });
-        //window.plugins.toast.showLongBottom('foreground mode one');
-    }, (1000 * 60) * 2);
-}).on('pause', function() {
-    clearInterval(adTimer);
-});
+*/
 
+
+tabFolder.appendTo(mainPage);
 //create tabs
-let latestNewsTab = tabs.createTab('News', tabFolder);
+let latestNewsTab = tabs.createTab('News', tabFolder);  
 let worldfootballTab = tabs.createTab('World Football', tabFolder);
 let ghPlayersAbroadTab = tabs.createTab('Players Abroad', tabFolder);
 let ghPremLeagueTab = tabs.createTab('Ghana Premier League', tabFolder);
 let nationalTeamTab = tabs.createTab('National Teams', tabFolder);
 let latestVideosTab = tabs.createTab('Videos', tabFolder);
 let latestPhotosTab = tabs.createTab('Photos', tabFolder);
-
+//
 listItems.createItems(true, catUrl('latest-news'), config.item.imageSize, config.item.marign, latestNewsTab, 'latestnews_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('world-football'), config.item.imageSize, config.item.marign, worldfootballTab, 'worldfootball_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('ghana-players-abroad'), config.item.imageSize, config.item.marign, ghPlayersAbroadTab, 'ghplayersabroad_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('ghana-prem-league'), config.item.imageSize, config.item.marign, ghPremLeagueTab, 'ghpremleague_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('national-teams'), config.item.imageSize, config.item.marign, nationalTeamTab, 'national_teams_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('latest-videos'), config.item.imageSize, config.item.marign, latestVideosTab, 'latest_videos_list', navigationView, shareAction);
-listItems.createItems(false, catUrl('latest-pictures'), config.item.imageSize, config.item.marign, latestPhotosTab, 'latest_pictures_list', navigationView, shareAction);
 
+setTimeout(function(){
+listItems.createItems(false, catUrl('world-football'), config.item.imageSize, config.item.marign, worldfootballTab, 'worldfootball_list', navigationView, shareAction);
+}, 1000);
+
+setTimeout(function(){
+listItems.createItems(false, catUrl('ghana-players-abroad'), config.item.imageSize, config.item.marign, ghPlayersAbroadTab, 'ghplayersabroad_list', navigationView, shareAction);
+}, 2000);
+
+setTimeout(function(){
+listItems.createItems(false, catUrl('ghana-prem-league'), config.item.imageSize, config.item.marign, ghPremLeagueTab, 'ghpremleague_list', navigationView, shareAction);
+}, 3000);
+
+setTimeout(function(){
+listItems.createItems(false, catUrl('national-teams'), config.item.imageSize, config.item.marign, nationalTeamTab, 'national_teams_list', navigationView, shareAction);
+}, 4000);
+
+setTimeout(function(){
+listItems.createItems(false, catUrl('latest-videos'), config.item.imageSize, config.item.marign, latestVideosTab, 'latest_videos_list', navigationView, shareAction);
+}, 5000);
+
+setTimeout(function(){
+listItems.createItems(false, catUrl('latest-pictures'), config.item.imageSize, config.item.marign, latestPhotosTab, 'latest_pictures_list', navigationView, shareAction);
+}, 6000);
+drawerMenu.createMenu(drawer, navigationView,shareAction);
+/*admob.initAdmob(config.item.bottom_banner, config.item.Interstitial);
+admob.showBanner(admob.BannerSize.SMART_BANNER, admob.Position.BOTTOM_CENTER);
+
+tabris.app.on('backNavigation', function() {
+    admob.cacheInterstitial(); // load admob Interstitial
+    admob.isInterstitialReady(function(isReady) {
+        admob.showInterstitial();
+    });
+});
 
 window.ga.startTrackerWithId(config.item.googleAnalytics);
 window.ga.trackView('Listing Section');
 window.ga.setUserId(tabris.app.id);
 window.ga.setAppVersion(tabris.app.version);
 
-
-
+*/

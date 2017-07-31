@@ -28,11 +28,11 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
-    <preference name="EnableDeveloperConsole" value="true" />
+   
     <plugin name="onesignal-cordova-plugin"/>
     <plugin name="cordova-plugin-inappbrowser"/>
   <plugin name="cordova-plugin-network-information"/>
   <plugin name="cordova-plugin-x-toast"/>
   <plugin name="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git"/>
-  
+
 </widget>

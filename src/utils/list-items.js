@@ -20,7 +20,7 @@ exports.createItems = function(firstsection = false, json_url, image_size, margi
         cellType: index => items[index].loading ? 'loading' : 'normal',
         createCell: (type) => {
             if (type === 'normal') {
-                return createItemCell(image_size, margin, tabID, detail_page, navigationView,shareAction);
+                return createItemCell(image_size, margin, tabID, detail_page, navigationView, shareAction);
             }
             return createLoadingCell();
         },
@@ -79,6 +79,25 @@ exports.createItems = function(firstsection = false, json_url, image_size, margi
             collectionView.refreshIndicator = false;
             //console.log('ITEM LENGTH: ' + items.length);
             return items;
+        }).catch((err) => {
+            //window.plugins.toast.showLongBottom('Failure: ' + (err || 'Error loading feed'));
+            let titleComposite = new tabris.Composite({
+        left: 0,
+        right: 0,
+        top: [imageView, 2],
+        id: "titleComposite",
+    }).appendTo(scrollView);
+    let newsTitle = new tabris.TextView({
+        left: MARGIN,
+        top: MARGIN,
+        right: MARGIN,
+        markupEnabled: true,
+        background: '#fff',
+        text: "PULL DOWN TO REFRESH",
+        font: "22px",
+        textColor: "#1e1e1e"
+    }).appendTo(titleComposite);
+            collectionView.refreshIndicator = false;
         });
     }
 
@@ -92,14 +111,14 @@ exports.createItems = function(firstsection = false, json_url, image_size, margi
         return new tabris.Composite();
     }
 
-    function createDetailsPage(item, detail_page, navigationView,shareAction) {
+    function createDetailsPage(item, detail_page, navigationView, shareAction) {
         //console.log(JSON.stringify(item));
-        let newsDetailPage = detail_page.news_readPage(item,shareAction);
+        let newsDetailPage = detail_page.news_readPage(item, shareAction);
         newsDetailPage.title = item.title;
         newsDetailPage.appendTo(navigationView);
     }
 
-    function createItemCell(image_size, margin, tabID, detail_page, navigationView,shareAction) {
+    function createItemCell(image_size, margin, tabID, detail_page, navigationView, shareAction) {
         let cell = new tabris.Composite();
         let container = new tabris.Composite({
             id: tabID + '_container',
@@ -114,7 +133,7 @@ exports.createItems = function(firstsection = false, json_url, image_size, margi
         }).appendTo(cell);
         container.on('tap', ({
             target: view
-        }) => createDetailsPage(view.item, detail_page, navigationView,shareAction));
+        }) => createDetailsPage(view.item, detail_page, navigationView, shareAction));
         let imageView = new tabris.ImageView({
             left: 5,
             top: 5,

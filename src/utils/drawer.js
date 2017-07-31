@@ -34,7 +34,7 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
         },
         createCell: (type) => {
             let cell = new tabris.Composite({
-                /*highlightOnTouch: true*/
+             
             });
             if (type === 'heading') {
                 return headingcell(cell);
@@ -86,11 +86,7 @@ exports.createMenu = function(drawer, navigationView, shareAction) {
                 settings.show(navigationView);
             } else {
                 let categoryPage = new tabris.Page({
-                    title: item.title,
-                    image: {
-                        src: config.item.imagePath + '/' + config.item.appLogo,
-                        scale: 3
-                    }
+                    title: item.title
                 }).appendTo(navigationView);
                 let url = config.item.apiUrl + '/category/' + item.slug;;
                 listItems.createItems(true, url, config.item.imageSize, config.item.marign, categoryPage, item.slug + '_list', navigationView, shareAction);

@@ -63,6 +63,14 @@ function OnOffNotification(compositeId,settings_value)
 {
     if(compositeId=='notification')
     {
+        if($settings_value===true)
+        {
+            window.plugins.toast.showLongBottom('You have subscribed to notifications');
+        }
+        else if($settings_value===false)
+        {
+            window.plugins.toast.showLongBottom('You have unsubscribed from notifications');
+        }
         window.plugins.OneSignal.setSubscription(settings_value);
     }
 }
