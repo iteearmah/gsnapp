@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <!-- Theme.Tabris.Light theme windowsBackground color (white) -->
+        <color android:color="#ffffff" />
+    </item>
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/screen" />
+    </item>
+
+</layer-list>
